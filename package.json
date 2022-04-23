@@ -1,0 +1,36 @@
+{
+  "name": "code_challenge_reward_endpoints",
+  "version": "1.0.0",
+  "description": "This project is for code challenge: Rewards endpoints",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jimmykohk/code_challenge_reward_endpoints.git"
+  },
+  "author": "KO CHUN PING, JIMMY",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jimmykohk/code_challenge_reward_endpoints/issues"
+  },
+  "homepage": "https://github.com/jimmykohk/code_challenge_reward_endpoints#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "log4js": "^6.4.5",
+    "readline": "^1.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "jest": "^27.5.1",
+    "supertest": "^6.2.2"
+  }
+}
