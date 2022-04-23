@@ -79,6 +79,7 @@ describe("Redeem reward", () => {
     expect(data.expiresAt).toBe(dateToString(nextDate))
   })
 
+
   test("Insert duplicate rewards", async () => {
     let testDate = dateToString(new Date())
     let url = `/users/${testAccount}/rewards/${testDate}/redeem`
@@ -88,6 +89,7 @@ describe("Redeem reward", () => {
     expect(response.statusCode).toBe(400)
   })
 
+
   test("Invalid date", async () => {
     let testDate = "2022-02-33"
     let url = `/users/${testAccount}/rewards/${testDate}/redeem`
@@ -95,6 +97,7 @@ describe("Redeem reward", () => {
     expect(response.statusCode).toBe(400)
   })
 
+  
   test("Invalid date 2", async () => {
     let testDate = "2022-02-ac"
     let url = `/users/${testAccount}/rewards/${testDate}/redeem`

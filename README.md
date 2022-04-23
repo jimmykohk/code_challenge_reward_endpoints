@@ -8,7 +8,7 @@ This project is for code challenge: Rewards endpoints
 
 ## How to run the project
 1. npm install
-2. node ./index.js
+2. node ./
 
 ## How to test the project
 npm run test
