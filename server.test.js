@@ -15,11 +15,11 @@ describe("GET user reward", () => {
     let body = response.body
     expect(body.data).not.toBeNull()
 
-    let date = body.date
-    expect(date.length).toBe(7)
+    let data = body.data
+    expect(data.length).toBe(7)
 
-    expect(date[0].availableAt).toBe("2022-04-17T00:00:00Z")
-    expect(date[0].expiresAt).toBe("2022-04-18T00:00:00Z")
+    expect(data[0].availableAt).toBe("2022-04-17T00:00:00Z")
+    expect(data[0].expiresAt).toBe("2022-04-18T00:00:00Z")
 
     testDate = new Date(testDate)
     testDate.setUTCHours(0,0,0,0)
@@ -29,8 +29,8 @@ describe("GET user reward", () => {
     testDateTo.setDate(testDateTo.getDate() + 1)
 
     for (let i = 0; i < 7; i++){
-      expect(date[i].availableAt).toBe(dateToString(testDateFrom))
-      expect(date[i].expiresAt).toBe(dateToString(testDateTo))
+      expect(data[i].availableAt).toBe(dateToString(testDateFrom))
+      expect(data[i].expiresAt).toBe(dateToString(testDateTo))
 
       testDateFrom.setDate(testDateFrom.getDate() + 1)
       testDateTo.setDate(testDateTo.getDate() + 1)

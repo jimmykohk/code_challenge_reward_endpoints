@@ -57,7 +57,7 @@ app.get('/users/:userId/rewards', function(req, res){
         dateList = generate7DaysEmptyRewards(dateFrom)
         user.insertRedeemRewards(userId, dateList.map(r=>JSON.stringify(r)))
       }
-      res.send({"date": dateList })
+      res.send({"data": dateList })
     })
     .catch(error=>{
       logger.error(error)
