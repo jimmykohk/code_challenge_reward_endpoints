@@ -24,7 +24,7 @@ describe("User", () => {
       redeemedAt: current,
       expiresAt: expiresAt
     }
-    user.insertRedeemReward(testAccount, JSON.stringify(expectedJson))
+    user.insertRedeemRewards(testAccount, [JSON.stringify(expectedJson)])
       .then(json => {
         expect(json.availableAt).toBe(expectedJson.availableAt)
         expect(json.redeemedAt).toBe(expectedJson.redeemedAt)
@@ -36,7 +36,7 @@ describe("User", () => {
     const availableAt = "2022-04-17T00:00:00Z"
     const redeemedAt = "2022-04-18T14:28:13Z"
     let list = generate7DaysEmptyRewards(new Date(availableAt))
-    user.insertRedeemReward(testAccount, JSON.stringify(list))
+    user.insertRedeemRewards(testAccount, list.map(r=>JSON.stringify(r)))
       .then(json => {
         let oldValue = JSON.parse(JSON.stringify(list[1]))
         list[1].redeemedAt = redeemedAt

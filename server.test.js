@@ -1,5 +1,5 @@
 import request from "supertest"
-import app, { dateToString } from "./app.js"
+import app, { dateToString, setDateHourToNoon } from "./app.js"
 import fs from "fs"
 import { User } from "./user.js"
 
@@ -79,12 +79,44 @@ describe("Redeem reward", () => {
     expect(data.expiresAt).toBe(dateToString(nextDate))
   })
 
+  test("Insert day before today", async () => {
+    let testDate = new Date()
+    setDateHourToNoon(testDate)
+    testDate.setDate(testDate.getDate() - 1)
+
+    let url = `/users/${testAccount}/rewards/${dateToString(testDate)}/redeem`
+    const response = await request(app).patch(url)
+    expect(response.statusCode).toBe(400)
+    let body = response.body
+    expect(body.error).not.toBeNull()
+    let error = body.error
+    expect(error.message).not.toBeNull()
+    expect(error.message).toBe("This reward is already expired.")
+  })
+
+
+  test("Insert day after today", async () => {
+    let testDate = new Date()
+    setDateHourToNoon(testDate)
+    testDate.setDate(testDate.getDate() + 1)
+
+    let url = `/users/${testAccount}/rewards/${dateToString(testDate)}/redeem`
+    const response = await request(app).patch(url)
+    expect(response.statusCode).toBe(400)
+    let body = response.body
+    expect(body.error).not.toBeNull()
+    let error = body.error
+    expect(error.message).not.toBeNull()
+    expect(error.message).toBe("You cannot redeem the reward from the future day.")
+  })
+
 
   test("Insert duplicate rewards", async () => {
     let testDate = dateToString(new Date())
     let url = `/users/${testAccount}/rewards/${testDate}/redeem`
     let response = await request(app).patch(url)
     expect(response.statusCode).toBe(200)
+
     response = await request(app).patch(url)
     expect(response.statusCode).toBe(400)
   })
@@ -105,6 +137,7 @@ describe("Redeem reward", () => {
     expect(response.statusCode).toBe(400)
   })
 
+  
   afterEach(() => {
     const user = new User()
     let userFilePath = user.getUserFilePath(testAccount);

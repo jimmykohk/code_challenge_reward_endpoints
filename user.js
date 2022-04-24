@@ -67,14 +67,13 @@ export class User{
   }
 
 
-  insertRedeemReward(userId, content){
+  insertRedeemRewards(userId, list){
     return new Promise((resolve, reject)=>{
-      if (userId == null || userId == ""){
-        reject("Empty user id")
-        return
-      }
+      if (userId == null || userId == "") reject("Empty user id")
+      if (list.length <= 0) reject("Empty list")
 
       const filePath = this.getUserFilePath(userId)
+      let content = list.join("\n")
       if (fs.existsSync(filePath))
         content = "\n" + content
       fs.appendFileSync(filePath, content, function(err) {

@@ -7,11 +7,15 @@ This project is for code challenge: Rewards endpoints
 - log4js
 
 ## How to run the project
-1. npm install
-2. node ./
+```
+npm install
+node ./
+```
 
 ## How to test the project
+```
 npm run test
+```
 
 ## How does it work
 When the service starts, create "user" folder if not exist.

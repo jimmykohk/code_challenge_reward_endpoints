@@ -55,7 +55,7 @@ app.get('/users/:userId/rewards', function(req, res){
         }while (day < 7)
       }else{
         dateList = generate7DaysEmptyRewards(dateFrom)
-        user.insertRedeemReward(userId, dateList.map(r=>JSON.stringify(r)).join("\n"))
+        user.insertRedeemRewards(userId, dateList.map(r=>JSON.stringify(r)))
       }
       res.send({"date": dateList })
     })
@@ -90,7 +90,7 @@ app.patch("/users/:userId/rewards/:availableAt/redeem", function(req, res){
   // Current date
   let currentDate = new Date()
   if (expiresAt.getTime() < currentDate.getTime()){
-    res.status(400).send({ "error": { "message": "This reward is already expired" } })
+    res.status(400).send({ "error": { "message": "This reward is already expired." } })
     return
   }else if (currentDate.getTime() < availableAt.getTime()){
     res.status(400).send({ "error": { "message": "You cannot redeem the reward from the future day." } })
@@ -120,7 +120,7 @@ app.patch("/users/:userId/rewards/:availableAt/redeem", function(req, res){
         let list = generate7DaysEmptyRewards(dateFrom)
         let record = list.find(r => r.availableAt == dateToString(availableAt))
         record.redeemedAt = dateToString(currentDate)
-        user.insertRedeemReward(userId, list.map(r=>JSON.stringify(r)).join("\n"))
+        user.insertRedeemRewards(userId, list.map(r=>JSON.stringify(r)))
         return record
       }
     })
@@ -198,7 +198,5 @@ export function dateToString(date){
   if (!(date instanceof Date) || date == "Invalid Date") return ""
   return date.toISOString().replace(/\.\d{3}/, "")
 }
-
-
 
 export default app
